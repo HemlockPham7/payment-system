@@ -6,6 +6,6 @@ import java.util.Map;
 
 public interface PaymentService {
 
-    String processCheckout(CheckoutRequest request, String clientIp);
+    String processCheckout(CheckoutRequest request, String idempotencyKey, String clientIp);
     int processVNPayCallback(Map<String, String> queryParams);
 }

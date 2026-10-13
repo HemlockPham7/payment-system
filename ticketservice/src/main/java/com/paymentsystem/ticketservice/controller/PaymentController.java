@@ -26,11 +26,12 @@ public class PaymentController {
     @PostMapping("/checkout")
     public ResponseEntity<String> checkout(
             @RequestBody CheckoutRequest request,
+            @RequestHeader("Idempotency-Key") String idempotencyKey,
             HttpServletRequest httpRequest
     ) {
 
         String clientIp = VNPayUtils.getIpAddress(httpRequest);
-        String paymentUrl = paymentService.processCheckout(request, clientIp);
+        String paymentUrl = paymentService.processCheckout(request, idempotencyKey, clientIp);
 
         return ResponseEntity.ok(paymentUrl);
     }

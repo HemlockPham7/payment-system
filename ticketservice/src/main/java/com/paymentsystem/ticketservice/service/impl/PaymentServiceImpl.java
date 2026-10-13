@@ -30,12 +30,12 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public String processCheckout(CheckoutRequest request, String clientIp) {
+    public String processCheckout(CheckoutRequest request, String idempotencyKey, String clientIp) {
         // 1. Check idempotency key
-        if (request.idempotencyKey() != null && !request.idempotencyKey().isBlank()) {
-            var existingPayment = paymentRepository.findByIdempotencyKey(request.idempotencyKey());
+        if (idempotencyKey != null && !idempotencyKey.isBlank()) {
+            var existingPayment = paymentRepository.findByIdempotencyKey(idempotencyKey);
             if (existingPayment.isPresent()) {
-                log.info("Idempotency key is duplicated: {}. ", request.idempotencyKey());
+                log.info("Idempotency key is duplicated: {}. ", idempotencyKey);
                 Payment payment = existingPayment.get();
 
                 if (payment.getPaymentStatus() == Payment.PaymentStatus.PENDING &&
@@ -83,7 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
 
         Payment payment = Payment.builder()
                 .orderId(orderId)
-                .idempotencyKey(request.idempotencyKey())
+                .idempotencyKey(idempotencyKey)
                 .amount(request.amount())
                 .customerId(request.customerId())
                 .seats(seatsString)

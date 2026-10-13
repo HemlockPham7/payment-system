@@ -1,6 +1,6 @@
 import { Header } from '@root/components'
 import { useNavigate } from 'react-router'
-import { useListMovies } from '@root/hooks/payment/useListMovies.ts'
+import { useListMovies } from '@root/hooks/movie/useListMovies.ts'
 
 const MovieDashboard = () => {
   const navigate = useNavigate()

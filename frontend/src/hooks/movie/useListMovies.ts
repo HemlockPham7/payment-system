@@ -1,15 +1,9 @@
-import paymentAxios from '@root/api/payment/paymentAxios.ts'
+import movieAxios from '@root/api/movie/movieAxios.ts'
 import { useQuery } from '@tanstack/react-query'
-
-export interface GetAllMoviesResponse {
-  id: string
-  title: string
-  description: string
-  seatsStatus: string
-}
+import type { GetAllMoviesResponse } from '@root/hooks/common/utils.ts'
 
 const getAllMovies = async (): Promise<GetAllMoviesResponse[]> => {
-  const response = await paymentAxios.get<GetAllMoviesResponse[]>('/movies')
+  const response = await movieAxios.get<GetAllMoviesResponse[]>('/movies')
 
   return response.data
 }
