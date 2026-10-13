@@ -6,6 +6,7 @@ import com.paymentsystem.ticketservice.entity.Movie;
 import com.paymentsystem.ticketservice.repository.MovieRepository;
 import com.paymentsystem.ticketservice.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -21,7 +22,9 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> getAllMovies() {
-        return movieRepository.findAll();
+        return movieRepository.findAll(
+                Sort.by(Sort.Direction.DESC, "id")
+        );
     }
 
     @Override

@@ -44,7 +44,8 @@ public class PaymentController {
         int paymentStatus = paymentService.processVNPayCallback(queryParams);
 
         String orderId = queryParams.get("vnp_TxnRef");
-        String redirectFrontendUrl = frontendUrl + "?orderId=" + orderId + "&status=";
+        String amount = queryParams.get("vnp_Amount");
+        String redirectFrontendUrl = frontendUrl + "?orderId=" + orderId + "&amount=" + amount + "&status=";
 
         if (paymentStatus == 1) {
             response.sendRedirect(redirectFrontendUrl + "success");
