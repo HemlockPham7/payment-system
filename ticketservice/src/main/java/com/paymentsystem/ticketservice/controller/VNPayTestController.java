@@ -59,10 +59,8 @@ public class VNPayTestController {
         String redirectFrontendUrl = frontendUrl + "?orderId=" + orderId + "&status=";
 
         if (paymentStatus == 1) {
-            // TODO: Update status = COMPLETED into database
             response.sendRedirect(redirectFrontendUrl + "success");
         } else {
-            // TODO: Update status = FAILED into database
             response.sendRedirect(redirectFrontendUrl + "failed");
         }
     }
