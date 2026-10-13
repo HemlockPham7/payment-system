@@ -25,3 +25,13 @@ springdoc:
     version: openapi_3_1
   swagger-ui:
     path: /swagger-ui.html
+
+vnpay:
+  version: 2.1.0
+  command: pay
+  order-type: other
+  tmn-code: 3ZMFH2HQ
+  hash-secret: TAKPRBRJLGHKWHRWNIWAZNIEFAAMBPFQ
+  url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+  return-url: http://localhost:8080/api/v1/payments/vnpay-callback
+  frontend-url: http://localhost:5173/payment-result
