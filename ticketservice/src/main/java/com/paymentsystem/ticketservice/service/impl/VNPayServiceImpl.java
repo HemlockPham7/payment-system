@@ -24,7 +24,7 @@ public class VNPayServiceImpl implements VNPayService {
         Map<String, String> vnpParams = vnPayConfig.getVNPayConfig();
         vnpParams.put("vnp_Amount", String.valueOf(amount));
         vnpParams.put("vnp_TxnRef", request.orderId());
-        vnpParams.put("vnp_OrderInfo", "Thanh toan don hang: " + request.orderId());
+        vnpParams.put("vnp_OrderInfo", "Purchase this order: " + request.orderId());
         vnpParams.put("vnp_IpAddr", request.ipAddress());
 
         return VNPayUtils.getPaymentUrl(vnpParams, vnPayConfig.getHashSecret(), vnPayConfig.getUrl());
