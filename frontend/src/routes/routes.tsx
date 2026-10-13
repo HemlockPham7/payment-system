@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router'
 import Navbar from '@root/routes/layout/Navbar.tsx'
 import TicketDashboard from '@root/routes/ticket/TicketDashboard.tsx'
 import TicketPaymentResult from '@root/routes/ticket/TicketPaymentResult.tsx'
+import MovieDashboard from '@root/routes/ticket/MovieDashboard.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -10,6 +11,10 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
+        Component: MovieDashboard,
+      },
+      {
+        path: '/movies/:movieId',
         Component: TicketDashboard,
       },
       {

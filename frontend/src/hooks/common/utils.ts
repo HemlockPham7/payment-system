@@ -12,23 +12,9 @@ export interface Base {
   createdAt: string
 }
 
-export interface Pagination {
-  page: number
-  size: number
-  totalElements: number
-  totalPages: number
-}
-
-export type VideoStatus = 'PROCESSING' | 'READY' | 'FAILED'
-
-export interface Video extends Base {
+export interface GetAllMoviesResponse {
+  id: string
   title: string
   description: string
-  status: VideoStatus
-  author: string
-  thumbnailKey: string
-  thumbnailType: string
-  category: string
-  viewCount: number
-  likeCount: number
+  seatsStatus: string
 }
