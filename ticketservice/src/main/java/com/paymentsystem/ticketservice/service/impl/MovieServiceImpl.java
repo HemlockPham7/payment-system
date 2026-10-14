@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +24,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getAllMovies() {
         return movieRepository.findAll(
-                Sort.by(Sort.Direction.DESC, "id")
+                Sort.by(Sort.Direction.DESC, "createdAt")
         );
     }
 
     @Override
-    public Movie getMovieById(Long id) {
+    public Movie getMovieById(String id) {
         return movieRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Movie Id not found: " + id));
     }
@@ -51,6 +52,7 @@ public class MovieServiceImpl implements MovieService {
         }
 
         Movie movie = Movie.builder()
+                .id(UUID.randomUUID().toString())
                 .title(request.title())
                 .description(request.description())
                 .seatsStatus(seatsStatusJson)

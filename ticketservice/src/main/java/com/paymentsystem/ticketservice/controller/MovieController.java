@@ -22,7 +22,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieDetails(@PathVariable Long id) {
+    public ResponseEntity<Movie> getMovieDetails(@PathVariable String id) {
         return ResponseEntity.ok(movieService.getMovieById(id));
     }
 

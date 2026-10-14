@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface MovieService {
     List<Movie> getAllMovies();
-    Movie getMovieById(Long id);
+    Movie getMovieById(String id);
     Movie createMovie(CreateMovieRequest request);
 }

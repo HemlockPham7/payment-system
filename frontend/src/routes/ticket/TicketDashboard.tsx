@@ -1,5 +1,5 @@
 import { Header } from '@root/components'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import { useMovieDetail } from '@root/hooks/movie/useMovieDetail.ts'
 import { useRef, useState } from 'react'
 import {
@@ -15,6 +15,7 @@ const getSeatPrice = (row: number) => {
 }
 
 const TicketDashboard = () => {
+  const navigate = useNavigate()
   const { movieId } = useParams<{ movieId: string }>()
 
   const { data: movie, isLoading, isError } = useMovieDetail(movieId!)
@@ -60,16 +61,18 @@ const TicketDashboard = () => {
     }
 
     try {
-      window.location.href = await checkoutMutation.mutateAsync({
+      const paymentId = await checkoutMutation.mutateAsync({
         idempotencyKey: idempotencyKeyRef.current,
         payload: {
-          customerId: 1,
-          movieId: Number(movieId),
+          customerId: '123',
+          movieId: movieId!,
           amount: totalAmount,
           seats: selectedSeats,
           paymentMethod: 'VNPAY',
         },
       })
+
+      navigate(`/checkout/${paymentId}`)
     } catch (error) {
       console.error('Checkout failed:', error)
     } finally {
