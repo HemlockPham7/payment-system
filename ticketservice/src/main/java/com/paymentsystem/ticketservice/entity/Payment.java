@@ -19,6 +19,9 @@ public class Payment {
     @Column(nullable = false, unique = true)
     private String orderId;
 
+    @Column(nullable = false)
+    private String movieId;
+
     @Column(nullable = false, unique = true)
     private String idempotencyKey;
 

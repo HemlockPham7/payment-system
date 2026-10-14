@@ -1,12 +1,11 @@
 package com.paymentsystem.ticketservice.controller;
 
 import com.paymentsystem.ticketservice.dto.CheckoutRequest;
-import com.paymentsystem.ticketservice.service.PaymentService;
+import com.paymentsystem.ticketservice.service.CheckOutService;
 import com.paymentsystem.ticketservice.util.VNPayUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,29 +21,19 @@ public class PaymentController {
     @Value("${vnpay.frontend-url}")
     private String frontendUrl;
 
-    private final PaymentService paymentService;
-    private final CommandGateway commandGateway;
+    private final CheckOutService checkOutService;
 
-    @PostMapping("/v2/checkout")
+    @PostMapping("/checkout")
     public ResponseEntity<String> checkout(
             @RequestBody CheckoutRequest request,
             @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey,
             HttpServletRequest httpRequest
     ) {
-        return ResponseEntity.ok("Checkout initiated with orderId: ");
-    }
-
-    @PostMapping("/checkout")
-    public ResponseEntity<String> checkoutV1(
-            @RequestBody CheckoutRequest request,
-            @RequestHeader("Idempotency-Key") String idempotencyKey,
-            HttpServletRequest httpRequest
-    ) {
 
         String clientIp = VNPayUtils.getIpAddress(httpRequest);
-        String paymentUrl = paymentService.processCheckout(request, idempotencyKey, clientIp);
+        String paymentId = checkOutService.processCheckout(request, idempotencyKey, clientIp);
 
-        return ResponseEntity.ok(paymentUrl);
+        return ResponseEntity.ok(paymentId);
     }
 
     @GetMapping("/vnpay-callback")
@@ -52,7 +41,7 @@ public class PaymentController {
             @RequestParam Map<String, String> queryParams,
             HttpServletResponse response
     ) throws IOException {
-        int paymentStatus = paymentService.processVNPayCallback(queryParams);
+        int paymentStatus = checkOutService.processVNPayCallback(queryParams);
 
         String orderId = queryParams.get("vnp_TxnRef");
         String amount = queryParams.get("vnp_Amount");
@@ -66,4 +55,17 @@ public class PaymentController {
             response.sendRedirect(redirectFrontendUrl + "failed");
         }
     }
+
+//    @PostMapping("/checkout")
+//    public ResponseEntity<String> checkoutV1(
+//            @RequestBody CheckoutRequest request,
+//            @RequestHeader("Idempotency-Key") String idempotencyKey,
+//            HttpServletRequest httpRequest
+//    ) {
+//
+//        String clientIp = VNPayUtils.getIpAddress(httpRequest);
+//        String paymentUrl = paymentService.processCheckout(request, idempotencyKey, clientIp);
+//
+//        return ResponseEntity.ok(paymentUrl);
+//    }
 }

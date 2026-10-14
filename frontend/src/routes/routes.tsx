@@ -3,6 +3,7 @@ import Navbar from '@root/routes/layout/Navbar.tsx'
 import TicketDashboard from '@root/routes/ticket/TicketDashboard.tsx'
 import TicketPaymentResult from '@root/routes/ticket/TicketPaymentResult.tsx'
 import MovieDashboard from '@root/routes/ticket/MovieDashboard.tsx'
+import CheckoutPayment from '@root/routes/ticket/CheckoutPayment.tsx'
 
 const routes = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const routes = createBrowserRouter([
       {
         path: '/payment-result',
         Component: TicketPaymentResult,
+      },
+      {
+        path: '/checkout/:paymentId',
+        Component: CheckoutPayment,
       },
     ],
   },
