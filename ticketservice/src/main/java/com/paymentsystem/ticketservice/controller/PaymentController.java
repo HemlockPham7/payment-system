@@ -6,6 +6,7 @@ import com.paymentsystem.ticketservice.util.VNPayUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +23,19 @@ public class PaymentController {
     private String frontendUrl;
 
     private final PaymentService paymentService;
+    private final CommandGateway commandGateway;
+
+    @PostMapping("/v2/checkout")
+    public ResponseEntity<String> checkout(
+            @RequestBody CheckoutRequest request,
+            @RequestHeader(value = "Idempotency-Key", required = false) String idempotencyKey,
+            HttpServletRequest httpRequest
+    ) {
+        return ResponseEntity.ok("Checkout initiated with orderId: ");
+    }
 
     @PostMapping("/checkout")
-    public ResponseEntity<String> checkout(
+    public ResponseEntity<String> checkoutV1(
             @RequestBody CheckoutRequest request,
             @RequestHeader("Idempotency-Key") String idempotencyKey,
             HttpServletRequest httpRequest

@@ -2,8 +2,8 @@ import paymentAxios from '@root/api/payment/paymentAxios.ts'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export interface CheckOutPayload {
-  customerId: number
-  movieId: number
+  customerId: string
+  movieId: string
   amount: number
   seats: string[]
   paymentMethod: 'VNPAY' | 'CASH'

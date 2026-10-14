@@ -63,8 +63,8 @@ const TicketDashboard = () => {
       window.location.href = await checkoutMutation.mutateAsync({
         idempotencyKey: idempotencyKeyRef.current,
         payload: {
-          customerId: 1,
-          movieId: Number(movieId),
+          customerId: '123',
+          movieId: movieId!,
           amount: totalAmount,
           seats: selectedSeats,
           paymentMethod: 'VNPAY',

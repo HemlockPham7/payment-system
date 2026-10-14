@@ -14,8 +14,7 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String orderId;
@@ -27,7 +26,10 @@ public class Payment {
     private Double amount;
 
     @Column(nullable = false)
-    private Long customerId;
+    private String customerId;
+
+    @Column(name = "seats", columnDefinition = "TEXT")
+    private String seats;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -36,9 +38,6 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private PaymentMethod paymentMethod; // VNPAY, CASH
-
-    @Column(name = "seats", columnDefinition = "TEXT")
-    private String seats;
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

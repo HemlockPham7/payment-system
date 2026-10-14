@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Map;
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -82,6 +83,7 @@ public class PaymentServiceImpl implements PaymentService {
         String seatsString = String.join(",", request.seats());
 
         Payment payment = Payment.builder()
+                .id(UUID.randomUUID().toString())
                 .orderId(orderId)
                 .idempotencyKey(idempotencyKey)
                 .amount(request.amount())

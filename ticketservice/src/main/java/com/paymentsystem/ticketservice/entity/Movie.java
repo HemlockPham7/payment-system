@@ -3,6 +3,8 @@ package com.paymentsystem.ticketservice.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "movies")
 @Getter
@@ -13,8 +15,7 @@ import lombok.*;
 public class Movie {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(nullable = false)
     private String title;
@@ -25,4 +26,18 @@ public class Movie {
     //  JSON string (VD: {"A1":"AVAILABLE", "A2":"BOOKED", "B1":"LOCKED", ...})
     @Column(columnDefinition = "TEXT", name = "seats_status")
     private String seatsStatus;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void updatedAt() {
+        updatedAt = LocalDateTime.now();
+    }
 }
