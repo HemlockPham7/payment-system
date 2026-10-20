@@ -7,3 +7,14 @@ Integrate VNPay to demonstrate a movie ticket purchasing flow, including movie s
 
 ## Architecture
 
+![Overall Architecture](asset/architecture/architecture.png)
+
+## Saga Pattern Orchestration Flow
+
+![Saga Pattern Orchestration Flow](asset/architecture/saga-flow.png)
+
+## Key Highlight
+
+- **Distributed Transaction Management:** Implemented distributed transaction workflows using the Saga Pattern and Axon Framework, ensuring reliable transaction coordination across microservices.
+- **Idempotency and Reliability:** Implemented idempotency mechanisms to prevent duplicate processing and maintain consistent transaction handling across services.
+- **Microservices Architecture & Payment Integration:** Designed and developed a Spring Boot-based microservices platform covering payment processing, order management, movie management, and VNPay payment gateway integration.
